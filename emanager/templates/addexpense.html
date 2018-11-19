@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}
+Add expenses
+{% endblock %}
+{% block content %}
+{% if messages %}
+          {% for message in messages %}
+          
+            {% if message.tags == "success" %}
+            <div class="fadeInDown alert alert-{{message.tags}}" role="alert">
+            <p style="color:#155724">{{message}}</p>
+            </div>
+            {%else%}
+            <div class="fadeInDown alert alert-failure" role="alert">
+            <p style="color:#721c24">{{message}}</p>
+        	</div>
+            {%endif%}
+          
+          {%endfor%}
+        {%endif%}
+  <div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <h1>Add expenses</h1>
+    </div>
+
+    <!-- Login Form -->
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.value }}
+     	<div class="vats">
+		</div>
+      {{ form.reason}}
+      {{form.date}}
+      <input type="submit" class="fadeIn fourth addbut" value="Add Expense">
+    </form>
+
+    <div id="formFooter">
+      Let us help you manage all your expenses
+    </div>
+
+  </div>
+</div>
+{%endblock%}

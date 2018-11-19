@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+<br>
+{% if messages %}
+          {% for message in messages %}
+          <div class="fadeInDown alert alert-{{message.tags}}" role="alert">
+            {% if message.tags == "success" %}
+            <p style="color:#155724">{{message}}</p>
+            {%else%}
+            <p style="color:#721c24">{{message}}</p>
+            {%endif%}
+          </div>
+          {%endfor%}
+        {%endif%}
+<div class="container">
+
+    <div class="dashboard fadeIn">
+    <br>
+    <div> <h2>Expenses</h2></div>
+
+    <hr />
+
+    <div class="method fadeIn second">
+        <div class="row margin-0 list-header">
+            <div class="col-md-3"><div class="header">Amount (EBG)</div></div>
+            <div class="col-md-2"><div class="header">VAT (20%)</div></div>
+            <div class="col-md-5"><div class="header">Reason</div></div>
+            <div class="col-md-2"><div class="header">Date</div></div>
+        </div>
+		{%for expense in expenses%}
+        <div class="row margin-0">
+            <div class="col-md-3">
+                <div class="cell">
+                    <div class="propertyname">
+                        {{expense.value}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="cell">
+                    <div class="type">
+                        +{{expense.vat}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="cell">
+                    <div class="description">
+                        {{expense.reason}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="cell">
+                    <div class="description">
+                        {{expense.date}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+    </div>
+</div>
+{%endblock%}

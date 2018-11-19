@@ -1,0 +1,87 @@
+{% load static from staticfiles %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{%block title%} {%endblock%} | Expense manager</title>
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<!-- Bootstrap CSS CDN -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <link rel="stylesheet" href="{% static 'jquery-ui.min.css' %}">
+    <script src="{% static 'external/jquery/jquery.js'%}"></script>
+    <script src="{% static 'jquery-ui.min.js'%}"></script>
+</head>
+<body>
+	<div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <a href="/"><h3 class="me">Expense Manager</h3></a>
+        </div>
+
+        <ul class="list-unstyled components">
+        	{%if user.is_authenticated %}
+			<p>Welcome, {{user.username}}</p>
+			<li>
+                <a href="{% url 'emanager:index' %}">My expenses</a>
+            </li>
+			<li>
+                <a href="{% url 'emanager:add_expense' %}">Add expenses</a>
+            </li>
+			<li>
+                <a href="{% url 'emanager:logout' %}">Logout</a>
+            </li>
+        	{%else%}
+            <p>Please Login or Signup to use</p>
+
+            <li>
+                <a href="{% url 'login' %}">Login</a>
+            </li>
+            <li>
+                <a href="{% url 'emanager:signup' %}">Register</a>
+            </li>
+            {%endif%}
+        </ul>
+
+    </nav>
+    <!-- Page Content -->
+    <div id="content">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                {%block content%}
+				{%endblock%}
+            </div>
+        </nav>
+    </div>
+</div>
+<script>
+  $(function() {
+    $( ".datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "2018:2080",
+      dateFormat: "yy-mm-dd",
+    });
+ 
+    $("#id_value").keyup(function(){
+    	if($(this).val().length >= 0){
+    		var amount = $(this).val()
+    		amount = amount.replace(/\D/g,' ')
+    		amount = amount.replace(',','')
+    		amount = amount.replace('.','')
+    		amount = amount.replace(' ','')
+
+	    	$(".vats").html("<br>VAT:" + (0.2 * amount) + " <br>");
+    	}
+    });
+
+  });
+  </script>
+</body>
+</html>

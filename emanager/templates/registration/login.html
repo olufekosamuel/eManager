@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}
+Login
+{% endblock %}
+{% block content %}
+{% if messages %}
+          {% for message in messages %}
+          <div class="fadeInDown alert alert-{{message.tags}}" role="alert">
+            {% if message.tags == "success" %}
+            <p style="color:#155724">{{message}}</p>
+            {%else%}
+            <p style="color:#721c24">{{message}}</p>
+            {%endif%}
+          </div>
+          {%endfor%}
+        {%endif%}
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <h1>Log In</h1>
+    </div>
+
+    <!-- Login Form -->
+    <form action="" method="post">
+      {% csrf_token %}
+      <input type="text" id="login" class="fadeIn second" name="username" placeholder="username">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+      {% if form.errors %}
+              <p style="color: red">Invalid Login credentials. Please try again with valid credentials</p>
+              <br> <br> {% endif %}
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      Not a member?<a class="underlineHover" href="{% url 'emanager:signup' %}"> Register</a>
+    </div>
+
+  </div>
+</div>
+{%endblock%}

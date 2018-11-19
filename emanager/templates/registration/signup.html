@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+Register
+{% endblock %}
+{% block content %}
+<div class="text-center">
+  {% if messages %}
+          {% for message in messages %}
+          <div class="fadeInDown alert alert-{{message.tags}}" role="alert">
+            {% if message.tags == "success" %}
+            <p style="color:#155724">{{message}}</p>
+            {%else%}
+            <p style="color:#721c24">{{message}}</p>
+            {%endif%}
+          </div>
+          {%endfor%}
+        {%endif%}
+  <div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <h1>Register</h1>
+    </div>
+
+    <!-- Login Form -->
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.username }}
+      {{ form.email }}
+      {{ form.password}}
+      {{form.confirm_password}}
+      <input type="submit" class="fadeIn fourth" value="REGISTER">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <span>Already a member?</span> <a class="underlineHover" href="{% url 'login' %}">Login</a>
+    </div>
+
+  </div>
+</div>
+</div>
+{%endblock%}
